@@ -22,4 +22,4 @@ resources:
     memory: "128Mi"
 
 env:
-  PORT: "8080"
+  PORT: "80"

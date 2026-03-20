@@ -2,13 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: todo-app
-  labels:
-    {{- include "todo-app.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort }}
+      targetPort: http
       protocol: TCP
       name: http
   selector:
