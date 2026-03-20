@@ -3,138 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TODO App</title>
+  <title>Hello Gateway</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
+      margin: 0;
       font-family: system-ui, sans-serif;
       background: #f0f4f8;
       display: flex;
       justify-content: center;
-      padding: 2rem 1rem;
+      align-items: center;
       min-height: 100vh;
     }
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,.1);
-      padding: 2rem;
-      width: 100%;
-      max-width: 540px;
-      height: fit-content;
+    h1 {
+      font-size: 2.5rem;
+      color: #1a202c;
     }
-    h1 { font-size: 1.8rem; margin-bottom: 1.5rem; color: #1a202c; }
-    .add-row {
-      display: flex;
-      gap: .5rem;
-      margin-bottom: 1.5rem;
-    }
-    input[type="text"] {
-      flex: 1;
-      padding: .6rem .9rem;
-      border: 1px solid #cbd5e0;
-      border-radius: 8px;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color .2s;
-    }
-    input[type="text"]:focus { border-color: #667eea; }
-    button {
-      padding: .6rem 1.1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: .95rem;
-      font-weight: 600;
-      transition: opacity .2s;
-    }
-    button:hover { opacity: .85; }
-    .btn-add { background: #667eea; color: #fff; }
-    ul { list-style: none; }
-    li {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-      padding: .7rem .5rem;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    li:last-child { border-bottom: none; }
-    li.done span { text-decoration: line-through; color: #a0aec0; }
-    li span { flex: 1; font-size: 1rem; color: #2d3748; }
-    .btn-done { background: #48bb78; color: #fff; padding: .4rem .75rem; font-size: .85rem; }
-    .btn-delete { background: #fc8181; color: #fff; padding: .4rem .75rem; font-size: .85rem; }
-    .empty { color: #a0aec0; text-align: center; padding: 1.5rem 0; font-size: .95rem; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>📝 TODO List</h1>
-    <div class="add-row">
-      <input type="text" id="todoInput" placeholder="What needs to be done?" />
-      <button class="btn-add" onclick="addTodo()">Add</button>
-    </div>
-    <ul id="todoList"><li class="empty">No todos yet — add one above!</li></ul>
-  </div>
-
-  <script>
-    const API = "/api/todos";
-
-    async function load() {
-      const todos = await fetch(API).then(r => r.json());
-      render(todos);
-    }
-
-    function render(todos) {
-      const ul = document.getElementById("todoList");
-      if (!todos.length) {
-        ul.innerHTML = '<li class="empty">No todos yet — add one above!</li>';
-        return;
-      }
-      ul.innerHTML = todos.map(t => `
-        <li class="${t.done ? "done" : ""}" data-id="${t.id}">
-          <span>${escHtml(t.text)}</span>
-          <button class="btn-done" onclick="toggle(${t.id}, ${!t.done})">
-            ${t.done ? "Undo" : "Done"}
-          </button>
-          <button class="btn-delete" onclick="remove(${t.id})">Delete</button>
-        </li>`).join("");
-    }
-
-    async function addTodo() {
-      const inp = document.getElementById("todoInput");
-      const text = inp.value.trim();
-      if (!text) return;
-      await fetch(API, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text })
-      });
-      inp.value = "";
-      load();
-    }
-
-    async function toggle(id, done) {
-      await fetch(`${API}/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ done })
-      });
-      load();
-    }
-
-    async function remove(id) {
-      await fetch(`${API}/${id}`, { method: "DELETE" });
-      load();
-    }
-
-    function escHtml(s) {
-      return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-    }
-
-    document.getElementById("todoInput")
-      .addEventListener("keydown", e => e.key === "Enter" && addTodo());
-
-    load();
-  </script>
+  <h1>hello gateway</h1>
 </body>
 </html>
