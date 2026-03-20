@@ -7,9 +7,6 @@ metadata:
   annotations:
     dev.okteto.com/generate-host: "todo-app"
 spec:
-  {{- if .Values.ingress.className }}
-  ingressClassName: {{ .Values.ingress.className }}
-  {{- end }}
   rules:
       - http:
         paths:
