@@ -11,7 +11,7 @@ spec:
   ingressClassName: {{ .Values.ingress.className }}
   {{- end }}
   rules:
-      http:
+      - http:
         paths:
           - path: /
             pathType: Prefix
