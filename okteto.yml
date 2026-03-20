@@ -1,0 +1,25 @@
+build:
+  todo-app:
+    context: .
+    dockerfile: Dockerfile
+
+deploy:
+  - name: Deploy Helm chart
+    command: |
+      helm upgrade --install todo-app ./helm/todo-app \
+        --set image=${OKTETO_BUILD_TODO_APP_IMAGE} \
+        --wait
+
+dev:
+  todo-app:
+    image: node:20-alpine
+    command: npm run dev
+    workdir: /app
+    sync:
+      - app/:/app
+    volumes:
+      - /app/node_modules
+    environment:
+      - PORT=8080
+    forward:
+      - 8080:8080
